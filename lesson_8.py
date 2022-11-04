@@ -28,24 +28,24 @@ class Person:
 
     @classmethod
     def validate_surname(cls, surname: str) -> None:
-        if type(surname) != str:
+        if not isinstance(surname, str):
             raise TypeError("Недопустимый тип данных. Ожидаю строку")
 
     @classmethod
     def validate_patronymic(cls, patronymic: str) -> None:
-        if type(patronymic) != str:
+        if not isinstance(patronymic, str):
             raise TypeError("Недопустимый тип данных. Ожидаю строку")
 
     @classmethod
     def validate_old(cls, old: int) -> None:
-        if old < 0 or old > 125:
+        if 0 < old < 125:
             raise ValueError("Недопустимый возраст. >0 < 125")
-        if type(old) != int:
+        if not isinstance(old, int):
             raise TypeError("Недопустимый тип данных. Ожидаю целое число")
 
     @classmethod
     def validate_weight(cls, weight: float) -> None:
-        if type(weight) != float:
+        if not isinstance(weight, float):
             raise TypeError("Недопустимый тип данных. Ожидаю вещественное число")
         if weight > 125:
             raise ValueError("Надо похудеть")
@@ -54,7 +54,7 @@ class Person:
 
     @classmethod
     def validate_serial_passport(cls, serial_passport: str) -> None:
-        if type(serial_passport) != str:
+        if not isinstance(serial_passport, str):
             raise TypeError("Недопустимый тип данных. Ожидаю строку")
         if serial_passport[0] and serial_passport[1] not in ascii_letters:
             raise TypeError("Серийный номер начинается с букв")
