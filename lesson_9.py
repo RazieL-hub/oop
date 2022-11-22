@@ -1,41 +1,34 @@
-class Point3D:
-    def __init__(self, x: int, y: int, z: int):
-        self._x = x
-        self._y = y
-        self._z = z
-
+"""
+Дескрипторы (data descriptor и non-data descriptor) | ООП Python
+"""
+class Descriptor:
     @classmethod
     def verify_coord(cls, coord):
         if type(coord) != int:
             raise TypeError("Координата должна быть целым числом")
 
-    @property
-    def x(self):
-        return self._x
+    def __set_name__(self, owner, name):
+        self.name = "_" + name
 
-    @x.setter
-    def x(self, coord):
-        self.verify_coord(coord=coord)
-        self._x = coord
+    def __get__(self, instance, owner):
+        return getattr(instance, self.name)
 
-    @property
-    def y(self):
-        return self._y
+    def __set__(self, instance, value):
+        self.verify_coord(value)
+        setattr(instance, self.name, value)
 
-    @y.setter
-    def y(self, coord):
-        self.verify_coord(coord=coord)
-        self._y = coord
 
-    @property
-    def z(self):
-        return self._z
+class Point3D:
+    x = Descriptor()
+    y = Descriptor()
+    z = Descriptor()
 
-    @z.setter
-    def z(self, coord):
-        self.verify_coord(coord=coord)
-        self._z = coord
+    def __init__(self, x: int, y: int, z: int):
+        self.x = x
+        self.y = y
+        self.z = z
 
 
 p = Point3D(1, 2, 3)
 print(p.__dict__)
+print(p.x)
